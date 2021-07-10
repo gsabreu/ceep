@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import NotesList from './components/NotesList'
+import CategoryList from './components/CategoryList'
 import RegisterForm from './components/RegisterForm'
 import './assets/App.css'
 import './assets/index.css'
@@ -9,7 +10,8 @@ class App extends Component {
   constructor(){
     super()
     this.state = {
-      notes:[]
+      notes:[],
+      categories:[],
     }
   }
 
@@ -28,13 +30,25 @@ class App extends Component {
     this.setState({notes:notesArray})
   }
 
+  addCategory(categoryName){
+    const newCategoriesArray = [...this.state.categories, categoryName]
+    const newState = {...this.state, categories:newCategoriesArray}
+    this.setState(newState)
+  }
+
   render () {
     return (
       <section className="conteudo">
         <RegisterForm createNote={this.createNote.bind(this)} />
-        <NotesList 
-          deleteNote={this.deleteNote.bind(this)}
-          notes={this.state.notes}/>
+        <main className="conteudo-principal">
+          <CategoryList 
+            addCategory={this.addCategory.bind(this)}
+            categories={this.state.categories}
+          />
+          <NotesList 
+            deleteNote={this.deleteNote.bind(this)}
+            notes={this.state.notes}/>
+        </main>
       </section>
     )
   }
