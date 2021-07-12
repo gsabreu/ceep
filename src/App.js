@@ -15,8 +15,8 @@ class App extends Component {
     }
   }
 
-  createNote(title, text) {
-    const newNote = {title, text}
+  createNote(title, text, category) {
+    const newNote = {title, text, category}
     const newNotesArray = [...this.state.notes, newNote]
     const newState = {
       notes:newNotesArray
@@ -39,7 +39,10 @@ class App extends Component {
   render () {
     return (
       <section className="conteudo">
-        <RegisterForm createNote={this.createNote.bind(this)} />
+        <RegisterForm
+          categories={this.state.categories}
+          createNote={this.createNote.bind(this)} 
+        />
         <main className="conteudo-principal">
           <CategoryList 
             addCategory={this.addCategory.bind(this)}
